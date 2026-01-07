@@ -13,4 +13,9 @@ public class Attendance {
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
+
+    public boolean isSameLocalDate(LocalDateTime localDateTime) {
+        return this.localDateTime.getMonth().equals(localDateTime.getMonth())
+                && this.localDateTime.getDayOfMonth() == localDateTime.getDayOfMonth();
+    }
 }

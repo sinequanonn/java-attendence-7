@@ -30,4 +30,13 @@ public class AttendanceService {
             throw new IllegalArgumentException(ErrorMessage.NOT_FOUND_CREW.getMessage());
         }
     }
+
+    public void checkAlreadyExist(String crewName, LocalDateTime localDateTime) {
+        List<Attendance> attendances = attendanceRepository.findAttendanceListByName(crewName);
+        for (Attendance attendance : attendances) {
+            if (attendance.isSameLocalDate(localDateTime)) {
+                throw new IllegalArgumentException(ErrorMessage.EXIST_ATTENDANCE.getMessage());
+            }
+        }
+    }
 }

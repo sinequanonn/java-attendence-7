@@ -47,6 +47,7 @@ public class AttendanceController {
         OpenTime.checkOpenTime(localDateTime);
         String crewName = inputView.inputCrewName();
         attendanceService.checkExistCrew(crewName);
+        attendanceService.checkAlreadyExist(crewName, localDateTime);
     }
 
     private String InputSelection(LocalDateTime localDateTime) {
