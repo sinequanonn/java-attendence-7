@@ -1,6 +1,7 @@
 package attendance;
 
 import attendance.controller.AttendanceController;
+import attendance.io.DataInitializer;
 import attendance.service.AttendanceService;
 import attendance.view.InputView;
 import attendance.view.OutputView;
@@ -27,7 +28,7 @@ public class AttendanceConfig {
 
     public AttendanceService attendanceService() {
         if (attendanceService == null) {
-            attendanceService = new AttendanceService();
+            attendanceService = new AttendanceService(DataInitializer.init());
         }
         return attendanceService;
     }

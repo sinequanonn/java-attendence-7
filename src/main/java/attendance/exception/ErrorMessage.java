@@ -1,7 +1,8 @@
 package attendance.exception;
 
 public enum ErrorMessage {
-    INVALID_INPUT("잘못된 형식을 입력하였습니다."),;
+    INVALID_INPUT("잘못된 형식을 입력하였습니다."),
+    INVALID_FILE("유효하지 않은 파일입니다.");
 
     public static final String ERROR_PREFIX = "[ERROR] ";
     private final String message;

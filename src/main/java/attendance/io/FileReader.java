@@ -7,7 +7,8 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class FileReader {
-    public List<String> readAllLines(Path path) {
+
+    public static List<String> readAllLines(Path path) {
         List<String> lines;
         try {
             lines = Files.readAllLines(path, StandardCharsets.UTF_8);
