@@ -6,11 +6,12 @@ import attendance.domain.OpenTime;
 import attendance.domain.SelectType;
 import attendance.exception.ErrorMessage;
 import attendance.service.AttendanceService;
-import attendance.utils.Validator;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 public class AttendanceController {
     private final InputView inputView;
@@ -24,7 +25,9 @@ public class AttendanceController {
     }
 
     public void run() {
+
         LocalDateTime localDateTime = attendanceService.initTodayDateTime();
+
         String selection;
         do {
             selection = InputSelection(localDateTime);
@@ -44,10 +47,11 @@ public class AttendanceController {
     }
 
     private void processRegisterAttendance(LocalDateTime localDateTime) {
-        OpenTime.checkOpenTime(localDateTime);
+        OpenTime.checkGoingSchoolTime(localDateTime);
         String crewName = inputView.inputCrewName();
         attendanceService.checkExistCrew(crewName);
         attendanceService.checkAlreadyExist(crewName, localDateTime);
+        OpenTime.checkCampusOpen(localDateTime);
     }
 
     private String InputSelection(LocalDateTime localDateTime) {

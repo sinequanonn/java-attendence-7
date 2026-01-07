@@ -7,8 +7,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class OpenTime {
+    public static final Time START_TIME = new Time(8, 0);
+    public static final Time END_TIME = new Time(23, 0);
 
-    public static void checkOpenTime(LocalDateTime localDateTime) {
+    public static void checkGoingSchoolTime(LocalDateTime localDateTime) {
         int month = localDateTime.getMonth().getValue();
         int day = localDateTime.getDayOfMonth();
         DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
@@ -21,6 +23,14 @@ public class OpenTime {
         // 성탄절인 경우
         if (month == 12 && day == 25) {
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void checkCampusOpen(LocalDateTime localDateTime) {
+        int hour = localDateTime.getHour();
+        int minute = localDateTime.getMinute();
+        if (START_TIME.isBefore(hour, minute) || END_TIME.isAfter(hour, minute)) {
+            throw new IllegalArgumentException(ErrorMessage.OUT_OF_CAMPUS_TIME.getMessage());
         }
     }
 }
