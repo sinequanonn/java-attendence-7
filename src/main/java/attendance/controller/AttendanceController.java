@@ -2,10 +2,12 @@ package attendance.controller;
 
 import attendance.domain.Attendance;
 import attendance.domain.Crew;
+import attendance.domain.SelectType;
 import attendance.service.AttendanceService;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +23,31 @@ public class AttendanceController {
     }
 
     public void run() {
-        Map<Crew, List<Attendance>> allAttendances = attendanceService.findAllAttendances();
-        for (Crew crew : allAttendances.keySet()) {
-            List<Attendance> attendances = allAttendances.get(crew);
-            System.out.println("Crew : " + crew.getName());
-            for (Attendance attendance : attendances) {
-                System.out.println("attendance = " + attendance.getLocalDateTime());
+        LocalDateTime localDateTime = attendanceService.initTodayDateTime();
+        String selection;
+        do {
+            selection = InputSelection(localDateTime);
+            try {
+                processAttendanceSystem(selection);
+            } catch (IllegalArgumentException exception) {
+                break;
             }
+        } while (!selection.equals(SelectType.QUIT));
+    }
+
+    private static void processAttendanceSystem(String selection) {
+        if (selection.equals(SelectType.ONE)) {
+            //TODO
         }
+        if (selection.equals(SelectType.TWO)) {
+            //TODO
+        }
+        if (selection.equals(SelectType.THREE)) {
+            //TODO
+        }
+    }
+
+    private String InputSelection(LocalDateTime localDateTime) {
+        return inputView.inputSelection(localDateTime);
     }
 }
