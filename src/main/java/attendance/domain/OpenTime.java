@@ -26,11 +26,15 @@ public class OpenTime {
         }
     }
 
-    public static void checkCampusOpen(LocalDateTime localDateTime) {
-        int hour = localDateTime.getHour();
-        int minute = localDateTime.getMinute();
-        if (START_TIME.isBefore(hour, minute) || END_TIME.isAfter(hour, minute)) {
+    public static void checkCampusOpen(Time time) {
+        if (START_TIME.isBefore(time) || END_TIME.isAfter(time)) {
             throw new IllegalArgumentException(ErrorMessage.OUT_OF_CAMPUS_TIME.getMessage());
+        }
+    }
+
+    public static void validateAttendanceTime(Time time) {
+        if (START_TIME.isBefore(time) || END_TIME.isAfter(time)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
         }
     }
 }

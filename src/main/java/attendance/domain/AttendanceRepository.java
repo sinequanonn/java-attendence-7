@@ -37,4 +37,8 @@ public class AttendanceRepository {
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NOT_FOUND_CREW.getMessage()));
     }
 
+    public void saveAttedance(Crew crew, Attendance attendance) {
+        List<Attendance> attendances = crewAttendances.get(crew);
+        attendances.add(attendance);
+    }
 }

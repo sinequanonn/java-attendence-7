@@ -1,17 +1,14 @@
 package attendance.controller;
 
-import attendance.domain.Attendance;
-import attendance.domain.Crew;
-import attendance.domain.OpenTime;
-import attendance.domain.SelectType;
+import attendance.domain.*;
 import attendance.exception.ErrorMessage;
 import attendance.service.AttendanceService;
+import attendance.utils.InputConverter;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public class AttendanceController {
     private final InputView inputView;
@@ -51,7 +48,13 @@ public class AttendanceController {
         String crewName = inputView.inputCrewName();
         attendanceService.checkExistCrew(crewName);
         attendanceService.checkAlreadyExist(crewName, localDateTime);
-        OpenTime.checkCampusOpen(localDateTime);
+        OpenTime.checkCampusOpen(new Time(localDateTime.getHour(), localDateTime.getMinute()));
+        List<Integer> time = InputConverter.convertTime(inputView.inputAttendanceTime());
+        int hour = time.get(0);
+        int minute = time.get(1);
+        OpenTime.validateAttendanceTime(new Time(hour, minute));
+        attendanceService.saveAttendance(crewName, localDateTime, hour, minute);
+
     }
 
     private String InputSelection(LocalDateTime localDateTime) {

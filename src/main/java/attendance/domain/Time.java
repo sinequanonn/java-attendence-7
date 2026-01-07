@@ -17,21 +17,31 @@ public class Time {
         return minute;
     }
 
-    public boolean isBefore(int hour, int minute) {
-        if (this.hour > hour) {
+    public boolean isBefore(Time time) {
+        if (this.hour > time.hour) {
             return true;
         }
-        if (this.hour == hour && this.minute > minute) {
+        if (this.hour == time.hour && this.minute > time.minute) {
             return true;
         }
         return false;
     }
 
-    public boolean isAfter(int hour, int minute) {
-        if (this.hour < hour) {
+    public boolean isAfter(Time time) {
+        if (this.hour < time.hour) {
             return true;
         }
-        if (this.hour == hour && this.minute < minute) {
+        if (this.hour == time.hour && this.minute < time.minute) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isEqualAndAfter(Time time) {
+        if (this.hour < time.hour) {
+            return true;
+        }
+        if (this.hour == time.hour && this.minute <= time.minute) {
             return true;
         }
         return false;

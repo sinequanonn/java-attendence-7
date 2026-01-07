@@ -15,6 +15,7 @@ public class InputView {
             "4. 제적 위험자 확인\n" +
             "Q. 종료\n";
     private static final String INPUT_CREW_NAME = "닉네임을 입력해 주세요.";
+    private static final String INPUT_ATTENDANCE_TIME = "등교 시간을 입력해 주세요.";
 
     public String input() {
         return Console.readLine();
@@ -29,6 +30,11 @@ public class InputView {
 
     public String inputCrewName() {
         System.out.println(INPUT_CREW_NAME);
+        return Console.readLine();
+    }
+
+    public String inputAttendanceTime() {
+        System.out.println(INPUT_ATTENDANCE_TIME);
         return Console.readLine();
     }
 }
