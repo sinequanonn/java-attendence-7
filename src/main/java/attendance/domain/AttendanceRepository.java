@@ -18,4 +18,13 @@ public class AttendanceRepository {
     public Map<Crew, List<Attendance>> getCrewAttendances() {
         return crewAttendances;
     }
+
+    public boolean checkExistCrew(String crewName) {
+        for (Crew crew : crewAttendances.keySet()) {
+            if (crew.equals(crewName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

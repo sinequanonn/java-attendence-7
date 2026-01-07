@@ -2,14 +2,15 @@ package attendance.controller;
 
 import attendance.domain.Attendance;
 import attendance.domain.Crew;
+import attendance.domain.OpenTime;
 import attendance.domain.SelectType;
+import attendance.exception.ErrorMessage;
 import attendance.service.AttendanceService;
+import attendance.utils.Validator;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 
 public class AttendanceController {
     private final InputView inputView;
@@ -27,27 +28,32 @@ public class AttendanceController {
         String selection;
         do {
             selection = InputSelection(localDateTime);
-            try {
-                processAttendanceSystem(selection);
-            } catch (IllegalArgumentException exception) {
-                break;
+            if (selection.equals(SelectType.ONE.getSelection())) {
+                processRegisterAttendance(localDateTime);
             }
-        } while (!selection.equals(SelectType.QUIT));
+            if (selection.equals(SelectType.TWO.getSelection())) {
+                //TODO
+            }
+            if (selection.equals(SelectType.THREE.getSelection())) {
+                //TODO
+            }
+            if (selection.equals(SelectType.FOUR.getSelection())) {
+                //TODO
+            }
+        } while (!selection.equals(SelectType.QUIT.getSelection()));
     }
 
-    private static void processAttendanceSystem(String selection) {
-        if (selection.equals(SelectType.ONE)) {
-            //TODO
-        }
-        if (selection.equals(SelectType.TWO)) {
-            //TODO
-        }
-        if (selection.equals(SelectType.THREE)) {
-            //TODO
-        }
+    private void processRegisterAttendance(LocalDateTime localDateTime) {
+        OpenTime.checkOpenTime(localDateTime);
+        String crewName = inputView.inputCrewName();
+        attendanceService.checkExistCrew(crewName);
     }
 
     private String InputSelection(LocalDateTime localDateTime) {
-        return inputView.inputSelection(localDateTime);
+        String input = inputView.inputSelection(localDateTime);
+        if (!SelectType.contains(input)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
+        }
+        return input;
     }
 }

@@ -3,6 +3,7 @@ package attendance.service;
 import attendance.domain.Attendance;
 import attendance.domain.AttendanceRepository;
 import attendance.domain.Crew;
+import attendance.exception.ErrorMessage;
 import camp.nextstep.edu.missionutils.DateTimes;
 
 import java.time.LocalDateTime;
@@ -22,5 +23,11 @@ public class AttendanceService {
 
     public LocalDateTime initTodayDateTime() {
         return DateTimes.now();
+    }
+
+    public void checkExistCrew(String crewName) {
+        if (!attendanceRepository.checkExistCrew(crewName)) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_FOUND_CREW.getMessage());
+        }
     }
 }

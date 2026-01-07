@@ -1,5 +1,7 @@
 package attendance.domain;
 
+import java.util.Objects;
+
 public class Crew {
     private String name;
 
@@ -9,5 +11,17 @@ public class Crew {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Crew crew = (Crew) o;
+        return Objects.equals(name, crew.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }
